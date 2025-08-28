@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm ngược ra mắt game - 15/7/2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%23000000" width="200" height="200"/><path fill="%23171725" d="M100 0L0 50L0 150L100 200L200 150L200 50Z"/></svg>') 0 0 repeat;
+            background-size: 300px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #f2709c;
+            text-shadow: 0 0 10px rgba(242, 112, 156, 0.5);
+        }
+
+        .game-title {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            color: #ff9472;
+            background: linear-gradient(to right, #f2709c, #ff9472);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .release-date {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #4ecca3;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown-value::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a0a0a0;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            margin: 30px 0;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .notify-btn {
+            background: linear-gradient(to right, #f2709c, #ff9472);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(242, 112, 156, 0.4);
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(242, 112, 156, 0.6);
+        }
+
+        .notify-btn:active {
+            transform: translateY(0);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(to right, #f2709c, #ff9472);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .countdown {
+                gap: 10px;
+            }
+
+            .countdown-value {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+            }
+
+            .game-title {
+                font-size: 2.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ĐẾM NGƯỢC TỚI NGÀY RA MẮT</h1>
+        <div class="game-title">bnana </div>
+        <div class="release-date">15/7/2026</div>
+
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-value" id="days">00</div>
+                <div class="countdown-label">Ngày</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">Giờ</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">Phút</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">Giây</div>
+            </div>
+        </div>
+
+        <div class="message">
+            <p>Chúng tôi đang hoàn thiện những chi tiết cuối cùng cho trải nghiệm chơi game tuyệt vời nhất!</p>
+            <p>Hãy chuẩn bị cho một cuộc phiêu lưu kỳ thú vào ngày 15/7/2026.</p>
+        </div>
+
+        <button class="notify-btn">Thông báo cho tôi</button>
+
+        <div class="social-icons">
+            <div class="social-icon">F</div>
+            <div class="social-icon">T</div>
+            <div class="social-icon">I</div>
+            <div class="social-icon">Y</div>
+        </div>
+    </div>
+
+    <script>
+        // Thiết lập ngày ra mắt game (15/7/2026)
+        const launchDate = new Date('July 15, 2026 00:00:00').getTime();
+
+        // Cập nhật đồng hồ đếm ngược mỗi giây
+        const countdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            // Tính toán ngày, giờ, phút, giây
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Hiển thị kết quả
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+
+            // Nếu đếm ngược kết thúc
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.querySelector('.countdown').innerHTML = '<div class="message"><h2>Game đã chính thức ra mắt!</h2></div>';
+            }
+        }, 1000);
+
+        // Xử lý sự kiện nút thông báo
+        document.querySelector('.notify-btn').addEventListener('click', function() {
+            alert('Cảm ơn bạn! Chúng tôi sẽ thông báo cho bạn khi game ra mắt.');
+        });
+    </script>
+</body>
+</html>
